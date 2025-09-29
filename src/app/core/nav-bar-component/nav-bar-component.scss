@@ -1,0 +1,134 @@
+/* Overwriting the old styles to match the new dark blue theme */
+
+$primary-blue: #09348c;  // Deeper blue base
+$secondary-blue: #03236e; // Darker blue for gradient
+$accent-yellow: #ffc107; // Yellow accent color for search button
+
+.navbar {
+  /* Matching the deep blue gradient from the second image */
+  background: linear-gradient(90deg, $primary-blue 0%, $secondary-blue 100%);
+  padding: 0.8rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+  .container-fluid {
+    padding: 0 1rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.25rem;
+    font-weight: 700; // Bolder text
+    letter-spacing: 0.5px;
+
+    .brand-text {
+      color: #fff;
+    }
+  }
+
+  .logo {
+    width: 45px;
+    height: 45px;
+    margin-right: 15px;
+    // Keeping a rounded look but could be square based on the logo's original shape
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); // Subtle glow effect
+  }
+
+  /* Refined Navigation Links */
+  .navbar-nav {
+    .nav-item {
+      // Adjusted margin for tighter spacing as in the second image
+      margin: 0 1rem;
+
+      .nav-link {
+        color: #f8f9fa !important; // Ensure links are bright white
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 0;
+        padding: 0.5rem 0;
+        border-bottom: 2px solid transparent;
+        transition: color 0.3s ease, border-bottom 0.3s ease;
+
+        &:hover {
+          color: $accent-yellow !important; // Hover to yellow
+        }
+
+        &.active {
+          color: $accent-yellow !important;
+          border-bottom: 2px solid $accent-yellow;
+        }
+      }
+    }
+  }
+
+  /* Search Bar Styling */
+  .search-form {
+    max-width: 400px; // Gives it a defined width
+    width: 100%;
+
+    .search-input-group {
+      border-radius: 0; // Remove rounded corners from the group
+      overflow: hidden;
+
+      .form-control {
+        border: none;
+        padding: 0.6rem 1.25rem; // Adjust padding to match button height
+        font-size: 1rem;
+
+        &:focus {
+          box-shadow: none;
+          background-color: white;
+        }
+      }
+
+      .search-btn {
+        background-color: $accent-yellow; // Yellow button
+        color: #333; // Dark text on yellow
+        border: none;
+        font-weight: 600;
+        padding: 0.6rem 1.5rem;
+        text-transform: uppercase;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: darken($accent-yellow, 10%);
+          transform: none; // Remove scale effect
+        }
+      }
+    }
+  }
+
+  /* Utility Icons and Dropdown */
+  .utility-icons-nav {
+    .nav-link {
+      padding: 0.5rem 0.75rem;
+      // Ensuring icons and text are vertically aligned
+      display: flex;
+      align-items: center;
+
+      i.material-icons {
+        font-size: 1.5rem; // Larger icons
+        color: #fff;
+      }
+
+      span {
+        margin-left: 5px;
+        text-transform: capitalize; // Optional: clean up text case
+      }
+    }
+  }
+
+  .dropdown-menu {
+    // Keeping the original dropdown styles but ensuring they work with the dark theme
+    margin-top: 0.75rem;
+  }
+}
+
+/* Media query for mobile */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background-color: $secondary-blue; // Dark background for collapsed menu
+  }
+  .search-form {
+    margin: 1rem auto;
+  }
+}

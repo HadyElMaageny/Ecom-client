@@ -1,0 +1,126 @@
+<div class="container mt-5">
+  <div class="row">
+
+    <!-- Sidebar Filters -->
+    <aside class="col-md-3">
+      <div class="sidebar">
+
+        <!-- Sorting -->
+        <div class="filter-card p-3 mb-4">
+          <label class="filter-label mb-2">Sorting</label>
+          <p-dropdown
+            [options]="[
+              { name: 'Price: Low to High' },
+              { name: 'Price: High to Low' },
+              { name: 'Newest' }
+            ]"
+            placeholder="Sort by"
+            styleClass="w-100"
+          ></p-dropdown>
+        </div>
+
+        <!-- Categories -->
+        <div class="filter-card p-3">
+          <label class="filter-label mb-2">Categories</label>
+          <p-listbox
+            [options]="[
+              { name: 'Electronics' },
+              { name: 'Clothing' },
+              { name: 'Books' }
+            ]"
+            class="category-listbox w-100"
+          ></p-listbox>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="col-md-9">
+
+      <!-- Paging & Search -->
+      <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+
+        <div class="paging-container">
+          <span class="text-dark">Showing 3 of 5</span>
+        </div>
+
+        <div class="search-container flex-grow-1">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search ...">
+            <button class="btn btn-danger">Search</button>
+            <button class="btn btn-dark">Reset</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Cards List -->
+      <div class="row g-4">
+
+        <!-- Card 1 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <p-card [style]="{ width: '100%', overflow: 'hidden' }">
+            <ng-template #header>
+              <img alt="Card" class="w-100" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg"/>
+            </ng-template>
+            <ng-template #title>Advanced Card 1</ng-template>
+            <ng-template #subtitle>Card subtitle</ng-template>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae.
+            </p>
+            <ng-template #footer>
+              <div class="d-flex gap-2">
+                <p-button label="Cancel" severity="secondary" [outlined]="true" class="flex-fill"></p-button>
+                <p-button label="Save" class="flex-fill"></p-button>
+              </div>
+            </ng-template>
+          </p-card>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <p-card [style]="{ width: '100%', overflow: 'hidden' }">
+            <ng-template #header>
+              <img alt="Card" class="w-100" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg"/>
+            </ng-template>
+            <ng-template #title>Advanced Card 2</ng-template>
+            <ng-template #subtitle>Card subtitle</ng-template>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae.
+            </p>
+            <ng-template #footer>
+              <div class="d-flex gap-2">
+                <p-button label="Cancel" severity="secondary" [outlined]="true" class="flex-fill"></p-button>
+                <p-button label="Save" class="flex-fill"></p-button>
+              </div>
+            </ng-template>
+          </p-card>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <p-card [style]="{ width: '100%', overflow: 'hidden' }">
+            <ng-template #header>
+              <img alt="Card" class="w-100" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg"/>
+            </ng-template>
+            <ng-template #title>Advanced Card 3</ng-template>
+            <ng-template #subtitle>Card subtitle</ng-template>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae.
+            </p>
+            <ng-template #footer>
+              <div class="d-flex gap-2">
+                <p-button label="Cancel" severity="secondary" [outlined]="true" class="flex-fill"></p-button>
+                <p-button label="Save" class="flex-fill"></p-button>
+              </div>
+            </ng-template>
+          </p-card>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+</div>
