@@ -6,11 +6,13 @@ import {FormsModule} from '@angular/forms';
 import {ListboxModule} from 'primeng/listbox';
 import {CardModule} from 'primeng/card';
 import {Button} from 'primeng/button';
+import { ShopItem } from './shop-item/shop-item';
 
 
 @NgModule({
   declarations: [
-    ShopComponent
+    ShopComponent,
+    ShopItem
   ],
   exports: [
     ShopComponent

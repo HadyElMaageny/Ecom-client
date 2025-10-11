@@ -1,10 +1,8 @@
 <div class="container mt-5">
   <div class="row">
-
     <!-- Sidebar Filters -->
     <aside class="col-md-3">
       <div class="sidebar">
-
         <!-- Sorting -->
         <div class="filter-card p-3 mb-4">
           <label class="filter-label mb-2">Sorting</label>
@@ -13,6 +11,7 @@
             placeholder="Sort by"
             optionLabel="name"
             styleClass="w-100"
+            (onChange)="onSortChange($event)"
           ></p-dropdown>
         </div>
 
@@ -23,92 +22,50 @@
             [options]="categories"
             optionLabel="name"
             class="category-listbox w-100"
+            (onChange)="onCategoryChange($event)"
           ></p-listbox>
         </div>
-
       </div>
     </aside>
 
     <!-- Main Content -->
     <main class="col-md-9">
-
       <!-- Paging & Search -->
       <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-
         <div class="paging-container">
           <span class="text-dark">Showing 3 of 5</span>
         </div>
 
         <div class="search-container flex-grow-1">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search ...">
+            <input type="text" class="form-control" placeholder="Search ..." />
             <button class="btn btn-danger">Search</button>
             <button class="btn btn-dark">Reset</button>
           </div>
         </div>
-
       </div>
 
       <!-- Cards List -->
-      <div class="row g-4">
-        <div class="product-item col-lg-4 col-md-6">
-          <div class="card h-100">
-            <img src="https://i.pinimg.com/1200x/78/bf/a8/78bfa893270a0b531705b1c56f25674d.jpg" class="image-top" alt="">
-            <div class="card-body">
-              <div class="thumbnails mb-3">
-                <img src="https://i.pinimg.com/1200x/78/bf/a8/78bfa893270a0b531705b1c56f25674d.jpg" alt="" class="thumbnail-img small-img">
-                <img src="https://i.pinimg.com/736x/43/54/b1/4354b1d283e36eabba8c09a8f55803be.jpg" alt="" class="thumbnail-img small-img">
-                <img src="https://i.pinimg.com/1200x/6d/51/b5/6d51b5c3fe6ce210a6fc1c7c493bed46.jpg" alt="" class="thumbnail-img small-img">
-              </div>
-              <h5 class="card-title">Lorem ipsum dolor.</h5>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid doloremque porro sunt!</p>
-              <p class="price">
-                <span class="old-price">{{ 100 | currency }}</span>
-                {{ 900 | currency }}
-              </p>
-              <div class="rating mb-3">
-
-              </div>
-              <button class="btn btn-outline-primary favourite-icon">
-                <i class="fa fa-bookmark"></i>
-              </button>
-              <div class="d-flex justify-content-between align-items-start">
-                <button class="btn btn-dark">
-                  <i class="fa fa-shopping-cart"></i> Add to Cart
-                </button>
-                <button class="btn btn-success">
-                  <i class="fa fa-info-circle"></i> Details
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Card 1 -->
-        <!--        <div class="col-12 col-md-6 col-lg-4">-->
-        <!--          <p-card [style]="{ width: '100%', overflow: 'hidden' }">-->
-        <!--            <ng-template #header>-->
-        <!--              <img alt="Card" class="w-100" src="https://picsum.photos/200/300"/>-->
-        <!--            </ng-template>-->
-        <!--            <ng-template #title>Advanced Card 1</ng-template>-->
-        <!--            <ng-template #subtitle>Card subtitle</ng-template>-->
-        <!--            <p>-->
-        <!--              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae.-->
-        <!--            </p>-->
-        <!--            <ng-template #footer>-->
-        <!--              <div class="d-flex gap-2">-->
-        <!--                <p-button label="Cancel" severity="secondary" [outlined]="true" class="flex-fill"></p-button>-->
-        <!--                <p-button label="Save" class="flex-fill"></p-button>-->
-        <!--              </div>-->
-        <!--            </ng-template>-->
-        <!--          </p-card>-->
-        <!--        </div>-->
-
-
+      <div class="row g-4" *ngIf="products.length > 0; else noProducts">
+        <app-shop-item
+          *ngFor="let product of products"
+          [product]="product"
+          class="col-lg-4 col-md-6"
+        ></app-shop-item>
       </div>
 
+      <!-- No Products Message -->
+      <ng-template #noProducts>
+        <div class="text-center py-5">
+          <div class="spinner-border text-primary" role="status" *ngIf="isLoading">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div *ngIf="!isLoading && products.length === 0" class="mt-3">
+            <h5 class="text-muted">No products found</h5>
+            <p class="text-muted">Try adjusting your search or filter criteria.</p>
+          </div>
+        </div>
+      </ng-template>
     </main>
-
   </div>
 </div>

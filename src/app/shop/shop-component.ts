@@ -21,6 +21,7 @@ export class ShopComponent implements OnInit {
   products: IProduct[] = [];
   categories!: ICategory[];
   selectedCategory!: ICategory;
+  isLoading: boolean = true;
 
   constructor(private shopService: ShopService) {
   }
@@ -28,24 +29,47 @@ export class ShopComponent implements OnInit {
   ngOnInit() {
     this.sortingOptions = [
       {name: 'Name', code: 'name'},
-      {name: 'PriceAsc', code: 'priceAsc'},
-      {name: 'PriceDesc', code: 'priceDesc'},
+      {name: 'PriceAsc', code: 'PriceAsc'},
+      {name: 'PriceDesc', code: 'PriceDesc'},
     ];
-    this.categories = [
-      {id: 1, name: 'Electronics', description: 'Latest gadgets and electronic devices', products: []},
-      {id: 2, name: 'Clothing', description: 'Fashion apparel for men, women and children', products: []},
-      {id: 3, name: 'Home & Garden', description: 'Furniture and outdoor living essentials', products: []}
-    ];
-    // this.selectedSortOption = this.sortingOptions[0];
-    // this.shopService.getProducts()
-    //   .subscribe({
-    //     next: (response: IApiResponse) => {
-    //       this.products = response.data;
-    //     },
-    //     error: (err) => {
-    //       console.error("Error:", err);
-    //     }
-    //   });
+    this.getProducts();
+    this.getCategories();
   }
 
+  getProducts(categoryId?: number, sortOption?: string) {
+    this.shopService.getProducts(categoryId, sortOption)
+      .subscribe({
+        next: (response: IApiResponse) => {
+          this.products = response.data;
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error("Error:", err);
+          this.isLoading = false;
+        }
+      });
+    }
+
+    getCategories() {
+      this.shopService.getCategories()
+        .subscribe({
+          next: (response: IApiResponse) => {
+            this.categories = response.data;
+          },
+          error: (err) => {
+            console.error("Error:", err);
+            this.isLoading = false;
+          }
+        });
+    }
+
+    onCategoryChange(event: any) {
+      this.selectedCategory = event.value;
+      this.getProducts(this.selectedCategory.id, this.selectedSortOption?.code);
+    }
+
+    onSortChange(event: any) {
+      this.selectedSortOption = event.value;
+      this.getProducts(this.selectedCategory?.id, this.selectedSortOption?.code);
+    }
 }
