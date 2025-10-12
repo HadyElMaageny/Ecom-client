@@ -1,36 +1,41 @@
-<div class="product-item ">
+<div class="product-item">
   <div class="card h-100">
-      <img
-        [src]="getMainImageUrl()"
-        class="image-top"
-        [alt]="product.name"
-        (error)="onImageError($event)"
-      />
-      <div class="card-body">
-        <div class="thumbnails mb-3" *ngIf="product.photos && product.photos.length > 1">
-          <img
-            *ngFor="let photo of product.photos; let i = index"
-            [src]="getImageUrl(photo.imageName)"
-            [alt]="product.name + ' thumbnail ' + (i + 1)"
-            class="thumbnail-img small-img"
-            (click)="selectImage(photo.imageName)"
-            (error)="onImageError($event)"
-          />
-        </div>
-        <h5 class="card-title">{{ product.name }}</h5>
-        <p class="card-text">{{ product.description }}</p>
-        <p class="price">
-          <span class="old-price" *ngIf="product.oldPrice > 0">{{ product.oldPrice | currency }}</span>
-          {{ product.newPrice | currency }}
-        </p>
-        <div class="rating mb-3"></div>
-        <button class="btn btn-outline-primary favourite-icon">
-          <i class="fa fa-bookmark"></i>
-        </button>
-        <div class="d-flex justify-content-between align-items-start">
-          <button class="btn btn-dark"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-          <button class="btn btn-success"><i class="fa fa-info-circle"></i> Details</button>
-        </div>
+    <img
+      [src]="getMainImageUrl()"
+      class="image-top"
+      [alt]="product.name"
+      (error)="onImageError($event)"
+    />
+    <div class="card-body">
+      @if (product.photos && product.photos.length > 1) {
+      <div class="thumbnails mb-3">
+        @for (photo of product.photos; track photo.imageName; let i = $index) {
+        <img
+          [src]="getImageUrl(photo.imageName)"
+          [alt]="product.name + ' thumbnail ' + (i + 1)"
+          class="thumbnail-img small-img"
+          (click)="selectImage(photo.imageName)"
+          (error)="onImageError($event)"
+        />
+        }
+      </div>
+      }
+      <h5 class="card-title">{{ product.name }}</h5>
+      <p class="card-text">{{ product.description }}</p>
+      <p class="price">
+        @if (product.oldPrice > 0) {
+        <span class="old-price">{{ product.oldPrice | currency }}</span>
+        }
+        {{ product.newPrice | currency }}
+      </p>
+      <div class="rating mb-3"></div>
+      <button class="btn btn-outline-primary favourite-icon">
+        <i class="fa fa-bookmark"></i>
+      </button>
+      <div class="d-flex justify-content-between align-items-start">
+        <button class="btn btn-dark"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+        <button class="btn btn-success"><i class="fa fa-info-circle"></i> Details</button>
       </div>
     </div>
   </div>
+</div>

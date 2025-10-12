@@ -11,6 +11,7 @@
             placeholder="Sort by"
             optionLabel="name"
             styleClass="w-100"
+            [(ngModel)]="selectedSortOption"
             (onChange)="onSortChange($event)"
           ></p-dropdown>
         </div>
@@ -22,6 +23,7 @@
             [options]="categories"
             optionLabel="name"
             class="category-listbox w-100"
+            [(ngModel)]="selectedCategory"
             (onChange)="onCategoryChange($event)"
           ></p-listbox>
         </div>
@@ -38,34 +40,45 @@
 
         <div class="search-container flex-grow-1">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search ..." />
-            <button class="btn btn-danger">Search</button>
-            <button class="btn btn-dark">Reset</button>
+            <input
+              type="text"
+              [(ngModel)]="search"
+              (keyup.enter)="onSearch(search)"
+              (keyup)="onSearch(search)"
+              class="form-control"
+              placeholder="Search ..."
+            />
+            <button class="btn btn-danger" (click)="onSearch(search)">Search</button>
+            <button class="btn btn-dark" (click)="onReset()">Reset</button>
           </div>
         </div>
       </div>
 
       <!-- Cards List -->
-      <div class="row g-4" *ngIf="products.length > 0; else noProducts">
-        <app-shop-item
-          *ngFor="let product of products"
-          [product]="product"
-          class="col-lg-4 col-md-6"
-        ></app-shop-item>
+      @if (products.length > 0) {
+      <div class="row g-4">
+        @for (product of products; track product.name) {
+        <app-shop-item [product]="product" class="col-lg-4 col-md-6"></app-shop-item>
+        }
       </div>
-
-      <!-- No Products Message -->
-      <ng-template #noProducts>
-        <div class="text-center py-5">
-          <div class="spinner-border text-primary" role="status" *ngIf="isLoading">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          <div *ngIf="!isLoading && products.length === 0" class="mt-3">
-            <h5 class="text-muted">No products found</h5>
-            <p class="text-muted">Try adjusting your search or filter criteria.</p>
-          </div>
+      } @else {
+      <div class="text-center py-5">
+        @if (isLoading) {
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
-      </ng-template>
+        } @else {
+        <div class="mt-3">
+          <h5 class="text-muted">No products found</h5>
+          <p class="text-muted">Try adjusting your search or filter criteria.</p>
+        </div>
+        }
+      </div>
+      }
+
+      <div>
+        <p-paginator [rows]="3" [totalRecords]="30"></p-paginator>
+      </div>
     </main>
   </div>
 </div>
