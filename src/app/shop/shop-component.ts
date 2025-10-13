@@ -18,13 +18,11 @@ interface Sort {
 })
 export class ShopComponent implements OnInit {
   sortingOptions: Sort[] = [];
-  selectedSortOption: Sort | undefined;
   products: IProduct[] = [];
   categories!: ICategory[];
-  selectedCategory: ICategory | undefined;
   isLoading: boolean = true;
-  search: string = '';
-  productParams: ProductParams = {};
+  totalCount: number = 0;
+  productParams = new ProductParams();
 
   constructor(private shopService: ShopService) {}
 
@@ -39,18 +37,19 @@ export class ShopComponent implements OnInit {
   }
 
   getProducts() {
-    this.shopService
-      .getProducts(this.selectedCategory?.id, this.selectedSortOption?.code, this.search)
-      .subscribe({
-        next: (response: IApiResponse) => {
-          this.products = response.data.data;
-          this.isLoading = false;
-        },
-        error: (err) => {
-          console.error('Error:', err);
-          this.isLoading = false;
-        },
-      });
+    this.shopService.getProducts(this.productParams).subscribe({
+      next: (response: IApiResponse) => {
+        this.products = response.data.data;
+        this.totalCount = response.data.totalCount;
+        this.productParams.pageNumber = response.data.pageNumber;
+        this.productParams.pageSize = response.data.pageSize;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error:', err);
+        this.isLoading = false;
+      },
+    });
   }
 
   getCategories() {
@@ -66,24 +65,29 @@ export class ShopComponent implements OnInit {
   }
 
   onCategoryChange(event: any) {
-    this.selectedCategory = event.value;
+    this.productParams.categoryId = event.value.id;
     this.getProducts();
   }
 
   onSortChange(event: any) {
-    this.selectedSortOption = event.value;
+    this.productParams.sort = event.value;
     this.getProducts();
   }
 
   onSearch(searchValue: string) {
-    this.search = searchValue;
+    this.productParams.search = searchValue;
     this.getProducts();
   }
 
   onReset() {
-    this.search = '';
-    this.selectedCategory = undefined;
-    this.selectedSortOption = undefined;
+    this.productParams.search = '';
+    this.productParams.categoryId = 0;
+    this.productParams.sort = '';
+    this.getProducts();
+  }
+
+  onPageChanged(event: any) {
+    this.productParams.pageNumber = event.page;
     this.getProducts();
   }
 }

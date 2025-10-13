@@ -11,7 +11,7 @@
             placeholder="Sort by"
             optionLabel="name"
             styleClass="w-100"
-            [(ngModel)]="selectedSortOption"
+            [(ngModel)]="productParams.sort"
             (onChange)="onSortChange($event)"
           ></p-dropdown>
         </div>
@@ -23,7 +23,7 @@
             [options]="categories"
             optionLabel="name"
             class="category-listbox w-100"
-            [(ngModel)]="selectedCategory"
+            [(ngModel)]="productParams.categoryId"
             (onChange)="onCategoryChange($event)"
           ></p-listbox>
         </div>
@@ -35,20 +35,22 @@
       <!-- Paging & Search -->
       <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
         <div class="paging-container">
-          <span class="text-dark">Showing 3 of 5</span>
+          <span class="text-dark">Showing {{ productParams.pageSize }} of {{ totalCount }}</span>
         </div>
 
         <div class="search-container flex-grow-1">
           <div class="input-group">
             <input
               type="text"
-              [(ngModel)]="search"
-              (keyup.enter)="onSearch(search)"
-              (keyup)="onSearch(search)"
+              [(ngModel)]="productParams.search"
+              (keyup.enter)="onSearch(productParams.search || '')"
+              (keyup)="onSearch(productParams.search || '')"
               class="form-control"
               placeholder="Search ..."
             />
-            <button class="btn btn-danger" (click)="onSearch(search)">Search</button>
+            <button class="btn btn-danger" (click)="onSearch(productParams.search || '')">
+              Search
+            </button>
             <button class="btn btn-dark" (click)="onReset()">Reset</button>
           </div>
         </div>
@@ -76,8 +78,13 @@
       </div>
       }
 
-      <div>
-        <p-paginator [rows]="3" [totalRecords]="30"></p-paginator>
+      <div class="d-flex justify-content-center align-items-center mt-5">
+        <pagination
+          [itemsPerPage]="this.productParams.pageSize"
+          [totalItems]="totalCount"
+          (pageChanged)="onPageChanged($event)"
+          [boundaryLinks]="true"
+        ></pagination>
       </div>
     </main>
   </div>

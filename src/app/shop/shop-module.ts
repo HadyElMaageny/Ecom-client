@@ -7,7 +7,7 @@ import { ListboxModule } from 'primeng/listbox';
 import { CardModule } from 'primeng/card';
 import { Button } from 'primeng/button';
 import { ShopItem } from './shop-item/shop-item';
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from '../shared/shared-module';
 
 @NgModule({
   declarations: [ShopComponent, ShopItem],
