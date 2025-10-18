@@ -3,7 +3,7 @@ import { IProduct } from './iproduct';
 export interface IApiResponse {
   statusCode: number;
   message: string;
-  data: Data;
+  data: any;
 }
 
 export interface Data {

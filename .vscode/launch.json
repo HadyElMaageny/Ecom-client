@@ -5,7 +5,7 @@
 
     {
       "name": "Launch Angular App",
-      "type": "chrome",
+      "type": "msedge",
       "request": "launch",
       "url": "http://localhost:4200",
       "webRoot": "${workspaceFolder}",
@@ -21,7 +21,7 @@
     },
     {
       "name": "Attach to Angular App",
-      "type": "chrome",
+      "type": "msedge",
       "request": "attach",
       "port": 9222,
       "webRoot": "${workspaceFolder}",

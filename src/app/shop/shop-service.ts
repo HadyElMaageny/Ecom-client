@@ -32,4 +32,8 @@ export class ShopService {
   getCategories() {
     return this.http.get<CategoryResponse>(this.baseUrl + '/api/Categories');
   }
+
+  getProductDetails(id: number) {
+    return this.http.get<IApiResponse>(this.baseUrl + '/api/Products/' + id);
+  }
 }

@@ -11,7 +11,7 @@
             placeholder="Sort by"
             optionLabel="name"
             styleClass="w-100"
-            [(ngModel)]="productParams.sort"
+            [(ngModel)]="selectedSort"
             (onChange)="onSortChange($event)"
           ></p-dropdown>
         </div>
@@ -23,7 +23,7 @@
             [options]="categories"
             optionLabel="name"
             class="category-listbox w-100"
-            [(ngModel)]="productParams.categoryId"
+            [(ngModel)]="selectedCategory"
             (onChange)="onCategoryChange($event)"
           ></p-listbox>
         </div>
@@ -79,12 +79,11 @@
       }
 
       <div class="d-flex justify-content-center align-items-center mt-5">
-        <pagination
-          [itemsPerPage]="this.productParams.pageSize"
-          [totalItems]="totalCount"
+        <app-pagination-component
+          [pageSize]="productParams.pageSize"
+          [totalCount]="totalCount"
           (pageChanged)="onPageChanged($event)"
-          [boundaryLinks]="true"
-        ></pagination>
+        ></app-pagination-component>
       </div>
     </main>
   </div>

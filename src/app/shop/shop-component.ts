@@ -23,6 +23,8 @@ export class ShopComponent implements OnInit {
   isLoading: boolean = true;
   totalCount: number = 0;
   productParams = new ProductParams();
+  selectedSort: Sort | null = null;
+  selectedCategory: ICategory | null = null;
 
   constructor(private shopService: ShopService) {}
 
@@ -30,8 +32,10 @@ export class ShopComponent implements OnInit {
     this.sortingOptions = [
       { name: 'Name', code: 'name' },
       { name: 'PriceAsc', code: 'PriceAsc' },
-      { name: 'PriceDesc', code: 'PriceDesc' },
+      { name: 'PriceDesc', code: 'PriceDesc' }
     ];
+    // Set initial selected sort based on default sort value
+    this.selectedSort = this.sortingOptions.find(option => option.code === this.productParams.sort) || this.sortingOptions[0];
     this.getProducts();
     this.getCategories();
   }
@@ -65,12 +69,14 @@ export class ShopComponent implements OnInit {
   }
 
   onCategoryChange(event: any) {
-    this.productParams.categoryId = event.value.id;
+    this.selectedCategory = event.value;
+    this.productParams.categoryId = event.value?.id || 0;
     this.getProducts();
   }
 
   onSortChange(event: any) {
-    this.productParams.sort = event.value;
+    this.selectedSort = event.value;
+    this.productParams.sort = event.value?.code || '';
     this.getProducts();
   }
 
@@ -82,7 +88,9 @@ export class ShopComponent implements OnInit {
   onReset() {
     this.productParams.search = '';
     this.productParams.categoryId = 0;
-    this.productParams.sort = '';
+    this.productParams.sort = 'name';
+    this.selectedSort = this.sortingOptions[0];
+    this.selectedCategory = null;
     this.getProducts();
   }
 
