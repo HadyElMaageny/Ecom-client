@@ -1,59 +1,57 @@
-# EcomClient
+# E-Commerce Storefront — Angular 20
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
+Responsive storefront for a full-stack e-commerce project, built with **Angular 20**, **Bootstrap 5** and **PrimeNG**, and backed by an ASP.NET Core 9 REST API.
 
-## Development server
+**Backend (ASP.NET Core 9 API):** [HadyElMaageny/Ecom](https://github.com/HadyElMaageny/Ecom)
 
-To start a local development server, run:
+![Project cover](docs/screenshots/cover.jpg)
 
-```bash
-ng serve
+## Features
+
+- **Home page:** hero section, category tiles that open the shop pre-filtered, featured products loaded from the API
+- **Shop:** category filter, sorting (name / price ascending / price descending), live search and server-side pagination
+- **Product details:** image gallery with thumbnails, old/new price with an automatic discount badge, quantity selector, and loading/not-found states
+- **Deep links:** `/shop?categoryId=7` opens the shop filtered to a category
+- **Responsive layout** built with Bootstrap's grid
+
+## Screenshots
+
+| Home | Shop |
+|---|---|
+| ![Home](docs/screenshots/home.jpg) | ![Shop](docs/screenshots/shop.jpg) |
+
+| Filter & sort | Product details |
+|---|---|
+| ![Filter and sort](docs/screenshots/shop-filter.jpg) | ![Product details](docs/screenshots/product-details.jpg) |
+
+## Tech stack
+
+Angular 20 · TypeScript · RxJS · Bootstrap 5 · PrimeNG · ngx-bootstrap · SCSS
+
+## Project structure
+
+```
+src/app
+├── core/       Navbar
+├── home/       Landing page
+├── shop/       Shop page, product card, product details, ShopService (API calls)
+└── shared/     Models (IProduct, ICategory, ProductParams) and pagination component
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Getting started
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+**Prerequisites:** Node.js 20+ and the [backend API](https://github.com/HadyElMaageny/Ecom) running on `http://localhost:5000`.
 
 ```bash
-ng generate component component-name
+git clone https://github.com/HadyElMaageny/Econ-client.git
+cd Econ-client
+npm install
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Open **http://localhost:4200**. Use port 4200: the API's CORS policy only allows that origin.
 
-```bash
-ng generate --help
-```
+## Roadmap
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Shopping cart and checkout
+- Login / register pages on top of the existing API endpoints
