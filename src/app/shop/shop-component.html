@@ -23,6 +23,7 @@
             [options]="categories"
             optionLabel="name"
             class="category-listbox w-100"
+            scrollHeight="none"
             [(ngModel)]="selectedCategory"
             (onChange)="onCategoryChange($event)"
           ></p-listbox>
@@ -35,7 +36,7 @@
       <!-- Paging & Search -->
       <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
         <div class="paging-container">
-          <span class="text-dark">Showing {{ productParams.pageSize }} of {{ totalCount }}</span>
+          <span class="text-dark">Showing {{ products.length }} of {{ totalCount }}</span>
         </div>
 
         <div class="search-container flex-grow-1">

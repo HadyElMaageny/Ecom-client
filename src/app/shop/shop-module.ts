@@ -13,7 +13,7 @@ import { AppRoutingModule } from '../app-routing-module';
 
 @NgModule({
   declarations: [ShopComponent, ShopItem, ProductDetails],
-  exports: [ShopComponent],
+  exports: [ShopComponent, ShopItem],
   imports: [
     CommonModule,
     DropdownModule,

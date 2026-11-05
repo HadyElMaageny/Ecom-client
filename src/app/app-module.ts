@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import {CoreModule} from './core/core-module';
 import {ShopModule} from './shop/shop-module';
+import { HomeModule } from './home/home-module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -17,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     CoreModule,
     ShopModule,
+    HomeModule,
     HttpClientModule,
     BrowserAnimationsModule
   ],

@@ -4,6 +4,7 @@ import { ShopService } from './shop-service';
 import { IApiResponse } from '../shared/Models/iapi-response';
 import { CategoryResponse, ICategory } from '../shared/Models/icategory';
 import { ProductParams } from '../shared/Models/ProductParams';
+import { ActivatedRoute } from '@angular/router';
 
 interface Sort {
   name: string;
@@ -26,9 +27,14 @@ export class ShopComponent implements OnInit {
   selectedSort: Sort | null = null;
   selectedCategory: ICategory | null = null;
 
-  constructor(private shopService: ShopService) {}
+  constructor(private shopService: ShopService, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    // Allow deep-linking to a category, e.g. /shop?categoryId=1 (used by the home page)
+    const categoryId = Number(this.route.snapshot.queryParamMap.get('categoryId'));
+    if (categoryId > 0) {
+      this.productParams.categoryId = categoryId;
+    }
     this.sortingOptions = [
       { name: 'Name', code: 'name' },
       { name: 'PriceAsc', code: 'PriceAsc' },
@@ -60,6 +66,8 @@ export class ShopComponent implements OnInit {
     this.shopService.getCategories().subscribe({
       next: (response: CategoryResponse) => {
         this.categories = response.data;
+        this.selectedCategory =
+          this.categories.find((c) => c.id === this.productParams.categoryId) ?? null;
       },
       error: (err) => {
         console.error('Error:', err);

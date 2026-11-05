@@ -1,1 +1,137 @@
-<p>home-component works!</p>
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <span class="hero-tag">New Season Collection</span>
+        <h1 class="hero-title">Everything you love, <span>delivered</span> to your door.</h1>
+        <p class="hero-text">
+          Discover electronics, fashion, home essentials and more at the best prices. Fast shipping, secure
+          checkout and hassle-free returns.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <a routerLink="/shop" class="btn btn-hero-primary">
+            Shop Now <i class="fa fa-arrow-right ms-2"></i>
+          </a>
+          <a href="#categories" class="btn btn-hero-outline">Browse Categories</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <strong>{{ totalProducts }}+</strong>
+            <span>Products</span>
+          </div>
+          <div>
+            <strong>{{ categories.length }}</strong>
+            <span>Categories</span>
+          </div>
+          <div>
+            <strong>24/7</strong>
+            <span>Support</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 d-none d-lg-block">
+        <div class="hero-visual">
+          <div class="blob"></div>
+          @if (heroImages[0]) {
+          <img [src]="heroImages[0]" alt="Featured product" class="hero-img main" />
+          } @if (heroImages[1]) {
+          <img [src]="heroImages[1]" alt="Featured product" class="hero-img side" />
+          }
+          <div class="hero-badge">
+            <i class="fa fa-bolt"></i>
+            <div>
+              <strong>Up to 25% off</strong>
+              <span>Limited-time deals</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="container features">
+  <div class="row g-3">
+    @for (feature of features; track feature.title) {
+    <div class="col-6 col-lg-3">
+      <div class="feature-card">
+        <i class="fa {{ feature.icon }}"></i>
+        <div>
+          <h6>{{ feature.title }}</h6>
+          <p>{{ feature.text }}</p>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="container section" id="categories">
+  <div class="section-head">
+    <div>
+      <span class="section-tag">Categories</span>
+      <h2>Shop by Category</h2>
+    </div>
+    <a routerLink="/shop" class="section-link">View all <i class="fa fa-angle-right"></i></a>
+  </div>
+  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3">
+    @for (category of categories; track category.id) {
+    <div class="col">
+      <a class="category-card" routerLink="/shop" [queryParams]="{ categoryId: category.id }">
+        <div class="category-icon"><i class="fa {{ getCategoryIcon(category.name) }}"></i></div>
+        <h5>{{ category.name }}</h5>
+        <span class="category-cta">Explore <i class="fa fa-long-arrow-right"></i></span>
+      </a>
+    </div>
+    }
+  </div>
+</section>
+
+<!-- Featured products -->
+<section class="container section">
+  <div class="section-head">
+    <div>
+      <span class="section-tag">Top Picks</span>
+      <h2>Featured Products</h2>
+    </div>
+    <a routerLink="/shop" class="section-link">See all products <i class="fa fa-angle-right"></i></a>
+  </div>
+
+  @if (isLoading) {
+  <div class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  } @else {
+  <div class="row g-4">
+    @for (product of featuredProducts; track product.id) {
+    <app-shop-item [product]="product" class="col-lg-4 col-md-6"></app-shop-item>
+    }
+  </div>
+  }
+</section>
+
+<!-- Promo banner -->
+<section class="container section">
+  <div class="promo">
+    <div>
+      <h3>Join our newsletter &amp; get 10% off</h3>
+      <p>Be the first to hear about new arrivals and exclusive offers.</p>
+    </div>
+    <form class="promo-form" (submit)="$event.preventDefault()">
+      <input type="email" class="form-control" placeholder="Enter your email" />
+      <button class="btn" type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container d-flex flex-wrap justify-content-between gap-2">
+    <span>&copy; {{ currentYear }} E-commerce. All rights reserved.</span>
+    <span>Built with ASP.NET Core &amp; Angular</span>
+  </div>
+</footer>
